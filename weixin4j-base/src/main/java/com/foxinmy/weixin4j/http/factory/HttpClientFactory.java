@@ -43,16 +43,16 @@ public abstract class HttpClientFactory {
 	private static HttpClientFactory newDefaultFactory() {
 		HttpClientFactory f;
 		try {
-			f = new Netty4HttpClientFactory();
+			f= (HttpClientFactory) Class.forName("com.foxinmy.weixin4j.http.support.netty.Netty4HttpClientFactory").newInstance();
 		} catch (Throwable e1) {
 			try {
-				f = new HttpComponent4Factory();
+				f= (HttpClientFactory) Class.forName("com.foxinmy.weixin4j.http.support.apache4.HttpComponent4Factory").newInstance();
 			} catch (Throwable e2) {
 				try {
-					f = new HttpComponent3Factory();
+					f= (HttpClientFactory) Class.forName("com.foxinmy.weixin4j.http.support.apache3.HttpComponent3Factory").newInstance();
 				} catch (Throwable e3) {
 					try {
-						f = new OkHttpClientFactory();
+						f= (HttpClientFactory) Class.forName("com.foxinmy.weixin4j.http.support.okhttp.OkHttpClientFactory").newInstance();
 					} catch (Throwable e4) {
 						f = new SimpleHttpClientFactory();
 					}
